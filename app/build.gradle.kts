@@ -69,6 +69,7 @@ dependencies {
 
     // Coil
     implementation(libs.coil.compose)
+    implementation(libs.androidx.navigation.compose.jvmstubs)
 
     // Test
     testImplementation(libs.junit)
