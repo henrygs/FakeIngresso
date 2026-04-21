@@ -1,4 +1,25 @@
 <resources>
     <string name="app_name">FakeIngresso</string>
-    <string name="title_activity_main">MainActivity</string>
+
+    <!-- Splash -->
+    <string name="splash_logo_description">Logo Ingresso</string>
+
+    <!-- General -->
+    <string name="loading">Carregando...</string>
+    <string name="error_generic">Algo deu errado. Tente novamente.</string>
+    <string name="retry">Tentar novamente</string>
+    <string name="no_connection">Sem conexão com a internet</string>
+
+    <!-- Events -->
+    <string name="coming_soon">Em breve</string>
+    <string name="pre_sale">Pré-venda</string>
+    <string name="synopsis">Sinopse</string>
+    <string name="cast">Elenco</string>
+    <string name="director">Direção</string>
+    <string name="genre">Gênero</string>
+    <string name="duration">Duração</string>
+    <string name="premiere">Estreia</string>
+    <string name="watch_trailer">Assistir trailer</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_favorite">FavoriteActivity</string>
 </resources>

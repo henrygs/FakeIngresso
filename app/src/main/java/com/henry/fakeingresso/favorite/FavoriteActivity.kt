@@ -1,6 +1,5 @@
-package com.henry.fakeingresso.main
+package com.henry.fakeingresso.favorite
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -9,22 +8,20 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.henry.fakeingresso.home.HomeActivity
-import com.henry.fakeingresso.splash.SplashScreen
 import com.henry.fakeingresso.ui.theme.FakeIngressoTheme
 
-class MainActivity : ComponentActivity() {
+class FavoriteActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             FakeIngressoTheme {
-                SplashScreen {
-                    startActivity(Intent(this, HomeActivity::class.java))
-                    finish()
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    Text(
+                        text = "Hello Favorite!",
+                        modifier = Modifier.padding(paddingValues = innerPadding)
+                    )
                 }
             }
         }
