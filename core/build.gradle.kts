@@ -43,7 +43,10 @@ dependencies {
     implementation(libs.androidx.core.ktx)
 
     // Koin
-    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+
+    // Gson
+    implementation(libs.gson)
 
     // Room
     implementation(libs.room.runtime)

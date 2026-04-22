@@ -1,3 +1,5 @@
+package com.henry.fakeingresso.domain.model
+
 data class RatingDetails(
     val color: String,
     val description: String,
