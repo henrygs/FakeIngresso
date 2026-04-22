@@ -1,9 +1,9 @@
-data class Item(
-    val accessibilityHubs: List<Any>,
+package com.henry.fakeingresso.domain.model
+
+data class Movie(
+    val id: String,
     val ancineId: String,
-    val b2BEventId: Any,
     val cast: String,
-    val cities: List<Any>,
     val city: String,
     val completeTags: List<CompleteTag>,
     val contentRating: String,
@@ -15,7 +15,6 @@ data class Item(
     val distributor: String,
     val duration: String,
     val genres: List<String>,
-    val id: String,
     val imageFeatured: String,
     val images: List<Image>,
     val inPreSale: Boolean,
@@ -25,7 +24,6 @@ data class Item(
     val movieIdUrl: String,
     val nationalSiteURL: String,
     val originalTitle: String,
-    val partnershipType: Any,
     val premiereDate: PremiereDate,
     val priority: Int,
     val rating: Double,
@@ -35,7 +33,6 @@ data class Item(
     val synopsis: String,
     val tags: List<String>,
     val title: String,
-    val titleSeen: Any,
     val trailers: List<Trailer>,
     val type: String,
     val urlKey: String

@@ -7,9 +7,9 @@ val DarkBackground = Color(0xFF121212)
 val DarkSurface = Color(0xFF1E1E2C)
 val DarkSurfaceVariant = Color(0xFF2A2A3C)
 
-// Primary (laranja Ingresso)
-val PrimaryOrange = Color(0xFFFF6F00)
-val PrimaryOrangeLight = Color(0xFFFF9E40)
+// Primary (azul Ingresso)
+val PrimaryBlue = Color(0xFF00041A)
+val PrimaryBLueLight = Color(0xFF0C18F8)
 
 // Text
 val TextWhite = Color(0xFFFFFFFF)
