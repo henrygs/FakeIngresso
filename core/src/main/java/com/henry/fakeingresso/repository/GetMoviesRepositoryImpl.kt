@@ -12,6 +12,8 @@ class GetMoviesRepositoryImpl(
 ) : GetMoviesRepository {
     override fun getMovies(): Flow<List<MovieDTO>> = movieDao.getAllMovies()
 
+    override suspend fun getMovieById(id: String): MovieDTO? = movieDao.getMovieById(id)
+
     override suspend fun refreshMovies(): Result<Unit> {
         return try {
             val remote = apiService.getMovies()
@@ -22,5 +24,4 @@ class GetMoviesRepositoryImpl(
             Result.failure(e)
         }
     }
-
 }

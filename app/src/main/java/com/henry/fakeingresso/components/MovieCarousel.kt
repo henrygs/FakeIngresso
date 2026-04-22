@@ -1,7 +1,8 @@
-package com.henry.fakeingresso.home.components
+package com.henry.fakeingresso.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,10 +21,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.res.painterResource
 import coil.compose.AsyncImage
 import com.henry.fakeingresso.R
 import com.henry.fakeingresso.domain.model.MovieDTO
@@ -63,7 +65,11 @@ fun MovieCarousel(
                 .aspectRatio(4f / 3f)
         ) { page ->
             val movie = movies[page]
-            Box(modifier = Modifier.fillMaxSize()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clickable { onMovieClick(movie) }
+            ) {
                 AsyncImage(
                     model = movie.horizontalPosterUrl,
                     contentDescription = movie.title,
@@ -91,12 +97,12 @@ fun MovieCarousel(
                             fontWeight = FontWeight.Bold,
                             maxLines = 2,
                             overflow = TextOverflow.Ellipsis,
-                            style = androidx.compose.material3.MaterialTheme.typography.titleLarge
+                            style = MaterialTheme.typography.titleLarge
                         )
                         Text(
                             text = movie.premiereDate.dayAndMonth,
                             color = TextGray,
-                            style = androidx.compose.material3.MaterialTheme.typography.bodySmall
+                            style = MaterialTheme.typography.bodySmall
                         )
                     }
                 }

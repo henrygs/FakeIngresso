@@ -1,4 +1,4 @@
-package com.henry.fakeingresso.home.components
+package com.henry.fakeingresso.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

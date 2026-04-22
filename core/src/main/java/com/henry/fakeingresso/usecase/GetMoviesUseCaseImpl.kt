@@ -15,6 +15,9 @@ class GetMoviesUseCaseImpl(
         return movies
     }
 
+    override suspend fun getMovieById(id: String): MovieDTO? =
+        repository.getMovieById(id)
+
     override suspend fun refreshMovies(): Result<Unit> =
         repository.refreshMovies()
 }

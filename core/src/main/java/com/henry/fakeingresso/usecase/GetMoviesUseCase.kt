@@ -5,5 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface GetMoviesUseCase {
     operator fun invoke() : Flow<List<MovieDTO>>
+    suspend fun getMovieById(id: String): MovieDTO?
     suspend fun refreshMovies() : Result<Unit>
 }
