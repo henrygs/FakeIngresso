@@ -9,17 +9,33 @@
     <string name="error_generic">Algo deu errado. Tente novamente.</string>
     <string name="retry">Tentar novamente</string>
     <string name="no_connection">Sem conexão com a internet</string>
+    <string name="back">Voltar</string>
+
+    <!-- Home -->
+    <string name="search_movies">Buscar filmes…</string>
+    <string name="search">Buscar</string>
+    <string name="now_showing">Em Cartaz</string>
+    <string name="no_movies_found">Nenhum filme encontrado</string>
 
     <!-- Events -->
     <string name="coming_soon">Em breve</string>
     <string name="pre_sale">Pré-venda</string>
     <string name="synopsis">Sinopse</string>
     <string name="cast">Elenco</string>
-    <string name="director">Direção</string>
+    <string name="director">Diretor</string>
     <string name="genre">Gênero</string>
     <string name="duration">Duração</string>
     <string name="premiere">Estreia</string>
-    <string name="watch_trailer">Assistir trailer</string>
+    <string name="watch_trailer">Assistir Trailer</string>
+    <string name="show_more">Mostrar mais</string>
+    <string name="show_less">Mostrar menos</string>
+
+    <!-- Favorites -->
+    <string name="favorites">Favoritos</string>
+    <string name="add_to_favorites">Adicionar aos favoritos</string>
+    <string name="remove_from_favorites">Remover dos favoritos</string>
+
+    <!-- Activity Titles -->
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_activity_favorite">FavoriteActivity</string>
 </resources>

@@ -3,14 +3,17 @@ package com.henry.fakeingresso.home.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.henry.fakeingresso.domain.model.MovieDTO
+import com.henry.fakeingresso.repository.local.FavoriteDao
 import com.henry.fakeingresso.usecase.GetMoviesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val getMoviesUseCase: GetMoviesUseCase
+    private val getMoviesUseCase: GetMoviesUseCase,
+    private val favoriteDao: FavoriteDao
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
@@ -20,6 +23,7 @@ class HomeViewModel(
 
     init {
         observeMovies()
+        observeFavorites()
     }
 
     private fun observeMovies() {
@@ -30,14 +34,27 @@ class HomeViewModel(
                     if (movies.isEmpty()) {
                         _uiState.value = HomeUiState.Empty
                     } else {
+                        val currentFavorites = (_uiState.value as? HomeUiState.Success)?.favoriteIds ?: emptySet()
                         _uiState.value = HomeUiState.Success(
                             movies = movies,
                             topMovies = movies.take(TOP_MOVIES_COUNT),
                             filteredMovies = filterMovies(movies, searchQuery),
-                            searchQuery = searchQuery
+                            searchQuery = searchQuery,
+                            favoriteIds = currentFavorites
                         )
                     }
                 }
+        }
+    }
+
+    private fun observeFavorites() {
+        viewModelScope.launch {
+            favoriteDao.getAllFavoriteIds().collectLatest { ids ->
+                val currentState = _uiState.value
+                if (currentState is HomeUiState.Success) {
+                    _uiState.value = currentState.copy(favoriteIds = ids.toSet())
+                }
+            }
         }
     }
 

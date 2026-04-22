@@ -1,5 +1,6 @@
-package com.henry.fakeingresso.home.components
+package com.henry.fakeingresso.components
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,12 +11,13 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.res.painterResource
 import coil.compose.AsyncImage
 import com.henry.fakeingresso.R
 import com.henry.fakeingresso.domain.model.MovieDTO
@@ -27,6 +29,7 @@ import com.henry.fakeingresso.ui.theme.TextWhite
 @Composable
 fun MovieGridCard(
     movie: MovieDTO,
+    isFavorite: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -37,16 +40,25 @@ fun MovieGridCard(
         colors = CardDefaults.cardColors(containerColor = DarkSurface)
     ) {
         Column {
-            AsyncImage(
-                model = movie.portraitPosterUrl,
-                contentDescription = movie.title,
-                contentScale = ContentScale.Crop,
-                placeholder = painterResource(R.drawable.ingresso_logo_v1_mobile_final),
-                error = painterResource(R.drawable.ingresso_logo_v1_mobile_final),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(2f / 3f)
-            )
+            Box {
+                AsyncImage(
+                    model = movie.portraitPosterUrl,
+                    contentDescription = movie.title,
+                    contentScale = ContentScale.Crop,
+                    placeholder = painterResource(R.drawable.ingresso_logo_v1_mobile_final),
+                    error = painterResource(R.drawable.ingresso_logo_v1_mobile_final),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(2f / 3f)
+                )
+                if (isFavorite) {
+                    FavoriteIcon(
+                        modifier = Modifier
+                            .align(Alignment.TopEnd)
+                            .padding(8.dp)
+                    )
+                }
+            }
             Column(modifier = Modifier.padding(8.dp)) {
                 Text(
                     text = movie.title,
