@@ -1,4 +1,6 @@
+package com.henry.fakeingresso.domain.model
+
 data class MoviesResponse(
     val count: Int,
-    val items: List<Item>
+    val items: List<Movie>
 )

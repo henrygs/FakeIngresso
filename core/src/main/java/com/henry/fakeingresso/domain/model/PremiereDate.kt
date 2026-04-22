@@ -1,3 +1,5 @@
+package com.henry.fakeingresso.domain.model
+
 data class PremiereDate(
     val dayAndMonth: String,
     val dayOfWeek: String,

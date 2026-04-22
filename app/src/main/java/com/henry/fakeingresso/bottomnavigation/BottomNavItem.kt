@@ -1,8 +1,8 @@
 package com.henry.fakeingresso.bottomnavigation
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed class BottomNavItem(
@@ -16,9 +16,9 @@ sealed class BottomNavItem(
         icon = Icons.Default.Home
     )
 
-    object Favorite : BottomNavItem(
-        route = "favorite",
-        title = "Favorite",
-        icon = Icons.Default.Favorite
+    object Detail : BottomNavItem(
+        route = "detail",
+        title = "Detalhes",
+        icon = Icons.Default.Info
     )
 }
