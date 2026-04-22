@@ -20,6 +20,9 @@ interface MovieDao {
     @Query("SELECT * FROM movies WHERE id = :id")
     suspend fun getMovieById(id: String): MovieDTO?
 
+    @Query("SELECT * FROM movies WHERE id IN (SELECT movieId FROM favorites)")
+    fun getFavoriteMovies(): Flow<List<MovieDTO>>
+
     @Query("DELETE FROM movies")
     suspend fun deleteAllMovies()
 }

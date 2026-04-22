@@ -1,4 +1,4 @@
-package com.henry.fakeingresso.components
+package com.henry.fakeingresso.ux
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Row

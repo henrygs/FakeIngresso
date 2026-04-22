@@ -1,4 +1,4 @@
-package com.henry.fakeingresso.components
+package com.henry.fakeingresso.ux
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background

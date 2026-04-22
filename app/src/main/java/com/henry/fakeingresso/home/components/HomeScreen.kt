@@ -32,8 +32,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.henry.fakeingresso.R
-import com.henry.fakeingresso.components.MovieCarousel
-import com.henry.fakeingresso.components.MovieGridCard
+import com.henry.fakeingresso.ux.MovieCarousel
+import com.henry.fakeingresso.ux.MovieGridCard
 import com.henry.fakeingresso.domain.model.MovieDTO
 import com.henry.fakeingresso.home.viewmodel.HomeUiState
 import com.henry.fakeingresso.ui.theme.DarkBackground
