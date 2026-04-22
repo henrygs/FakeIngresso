@@ -46,11 +46,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.henry.fakeingresso.R
-import com.henry.fakeingresso.components.ContentRatingBadge
-import com.henry.fakeingresso.components.FavoriteButton
-import com.henry.fakeingresso.components.GenreChips
-import com.henry.fakeingresso.components.ImageCarousel
-import com.henry.fakeingresso.components.RatingRow
+import com.henry.fakeingresso.ux.ContentRatingBadge
+import com.henry.fakeingresso.ux.FavoriteButton
+import com.henry.fakeingresso.ux.GenreChips
+import com.henry.fakeingresso.ux.ImageCarousel
+import com.henry.fakeingresso.ux.RatingRow
 import com.henry.fakeingresso.domain.model.MovieDTO
 import com.henry.fakeingresso.ui.theme.DarkBackground
 import com.henry.fakeingresso.ui.theme.PrimaryBLueLight

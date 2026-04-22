@@ -3,16 +3,12 @@ package com.henry.fakeingresso.home
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -24,17 +20,19 @@ import com.henry.fakeingresso.bottomnavigation.BottomNavItem
 import com.henry.fakeingresso.bottomnavigation.BottomNavigationBar
 import com.henry.fakeingresso.detail.DetailScreen
 import com.henry.fakeingresso.detail.DetailViewModel
+import com.henry.fakeingresso.favorites.FavoritesScreen
+import com.henry.fakeingresso.favorites.FavoritesViewModel
 import com.henry.fakeingresso.home.components.HomeScreen
 import com.henry.fakeingresso.home.viewmodel.HomeViewModel
 import com.henry.fakeingresso.ui.theme.DarkBackground
 import com.henry.fakeingresso.ui.theme.FakeIngressoTheme
-import com.henry.fakeingresso.ui.theme.TextGray
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeActivity : BaseHomeActivity() {
 
     private val homeViewModel: HomeViewModel by viewModel()
     private val detailViewModel: DetailViewModel by viewModel()
+    private val favoritesViewModel: FavoritesViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,16 +72,14 @@ class HomeActivity : BaseHomeActivity() {
                             )
                         }
                         composable(BottomNavItem.Favorites.route) {
-                            Box(
-                                modifier = Modifier.fillMaxSize(),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(
-                                    text = "Favoritos",
-                                    color = TextGray,
-                                    style = MaterialTheme.typography.titleLarge
-                                )
-                            }
+                            val favoriteMovies by favoritesViewModel.favoriteMovies.collectAsState()
+
+                            FavoritesScreen(
+                                movies = favoriteMovies,
+                                onMovieClick = { movie ->
+                                    navController.navigate("detail/${movie.id}")
+                                }
+                            )
                         }
                         composable(
                             route = DETAIL_ROUTE,

@@ -8,7 +8,7 @@ import com.henry.fakeingresso.usecase.GetMoviesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
@@ -22,39 +22,31 @@ class HomeViewModel(
     private var searchQuery = ""
 
     init {
-        observeMovies()
-        observeFavorites()
+        observeMoviesAndFavorites()
     }
 
-    private fun observeMovies() {
+    private fun observeMoviesAndFavorites() {
         viewModelScope.launch {
-            getMoviesUseCase()
+            combine(
+                getMoviesUseCase(),
+                favoriteDao.getAllFavoriteIds()
+            ) { movies, favoriteIds ->
+                movies to favoriteIds.toSet()
+            }
                 .catch { e -> _uiState.value = HomeUiState.Error(e.message ?: UNKNOWN_ERROR) }
-                .collect { movies ->
+                .collect { (movies, favoriteIds) ->
                     if (movies.isEmpty()) {
                         _uiState.value = HomeUiState.Empty
                     } else {
-                        val currentFavorites = (_uiState.value as? HomeUiState.Success)?.favoriteIds ?: emptySet()
                         _uiState.value = HomeUiState.Success(
                             movies = movies,
                             topMovies = movies.take(TOP_MOVIES_COUNT),
                             filteredMovies = filterMovies(movies, searchQuery),
                             searchQuery = searchQuery,
-                            favoriteIds = currentFavorites
+                            favoriteIds = favoriteIds
                         )
                     }
                 }
-        }
-    }
-
-    private fun observeFavorites() {
-        viewModelScope.launch {
-            favoriteDao.getAllFavoriteIds().collectLatest { ids ->
-                val currentState = _uiState.value
-                if (currentState is HomeUiState.Success) {
-                    _uiState.value = currentState.copy(favoriteIds = ids.toSet())
-                }
-            }
         }
     }
 
