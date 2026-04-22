@@ -192,10 +192,33 @@ com.henry.fakeingresso/
 | **Repository** | Delegação ao DAO, fluxo do refreshMovies (API → delete → insert), tratamento de erro |
 | **ViewModel** | Estados da UI, busca/filtro, combinação de Flows, refresh com conectividade |
 
-## Como rodar
+## Como instalar e rodar
+
+### Pré-requisitos
+
+- **Android Studio** Koala ou superior
+- **JDK 17**
+- **Android SDK** com API 35 instalada
+
+### Setup
 
 ```bash
-# Build
+# 1. Clone o repositório
+git clone https://github.com/henrygs/FakeIngresso.git
+
+# 2. Abra o projeto no Android Studio
+# File → Open → selecione a pasta FakeIngresso
+
+# 3. Aguarde o Gradle sync finalizar
+
+# 4. Rode em um emulador ou dispositivo (minSdk 24 / Android 7.0+)
+# Run → Run 'app'
+```
+
+### Comandos úteis
+
+```bash
+# Build do APK debug
 ./gradlew assembleDebug
 
 # Testes unitários
@@ -212,3 +235,4 @@ com.henry.fakeingresso/
 - **BuildConfig**: AGP 8+ requer `buildFeatures { buildConfig = true }` explicitamente
 - **Imagens**: Alguns filmes têm `imageFeatured` vazio — `MovieExtensions.kt` tem fallback chain entre PosterHorizontal e PosterPortrait
 - **Favoritos + Filmes**: Usa `combine()` nos ViewModels para evitar race condition entre os dois Flows
+- **Null Safety na API**: Os campos dos modelos da API são nullable — se o backend alterar ou remover um campo, o app não quebra
