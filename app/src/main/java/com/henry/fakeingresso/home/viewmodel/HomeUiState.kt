@@ -9,7 +9,8 @@ sealed class HomeUiState {
         val movies: List<MovieDTO>,
         val topMovies: List<MovieDTO>,
         val filteredMovies: List<MovieDTO> = movies,
-        val searchQuery: String = ""
+        val searchQuery: String = "",
+        val favoriteIds: Set<String> = emptySet()
     ) : HomeUiState()
     data class Error(val message: String) : HomeUiState()
 }

@@ -5,5 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface GetMoviesRepository {
     fun getMovies() : Flow<List<MovieDTO>>
+    suspend fun getMovieById(id: String): MovieDTO?
     suspend fun refreshMovies() : Result<Unit>
 }

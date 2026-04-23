@@ -3,14 +3,17 @@ package com.henry.fakeingresso.home.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.henry.fakeingresso.domain.model.MovieDTO
+import com.henry.fakeingresso.repository.local.FavoriteDao
 import com.henry.fakeingresso.usecase.GetMoviesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val getMoviesUseCase: GetMoviesUseCase
+    private val getMoviesUseCase: GetMoviesUseCase,
+    private val favoriteDao: FavoriteDao
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
@@ -19,14 +22,19 @@ class HomeViewModel(
     private var searchQuery = ""
 
     init {
-        observeMovies()
+        observeMoviesAndFavorites()
     }
 
-    private fun observeMovies() {
+    private fun observeMoviesAndFavorites() {
         viewModelScope.launch {
-            getMoviesUseCase()
+            combine(
+                getMoviesUseCase(),
+                favoriteDao.getAllFavoriteIds()
+            ) { movies, favoriteIds ->
+                movies to favoriteIds.toSet()
+            }
                 .catch { e -> _uiState.value = HomeUiState.Error(e.message ?: UNKNOWN_ERROR) }
-                .collect { movies ->
+                .collect { (movies, favoriteIds) ->
                     if (movies.isEmpty()) {
                         _uiState.value = HomeUiState.Empty
                     } else {
@@ -34,7 +42,8 @@ class HomeViewModel(
                             movies = movies,
                             topMovies = movies.take(TOP_MOVIES_COUNT),
                             filteredMovies = filterMovies(movies, searchQuery),
-                            searchQuery = searchQuery
+                            searchQuery = searchQuery,
+                            favoriteIds = favoriteIds
                         )
                     }
                 }

@@ -17,7 +17,7 @@ import com.henry.fakeingresso.ui.theme.TextDarkGray
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
-    val items = listOf(BottomNavItem.Home, BottomNavItem.Detail)
+    val items = listOf(BottomNavItem.Home, BottomNavItem.Favorites)
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 

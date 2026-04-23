@@ -1,5 +1,7 @@
 package com.henry.fakeingresso.application.viewmodel
 
+import com.henry.fakeingresso.detail.DetailViewModel
+import com.henry.fakeingresso.favorites.FavoritesViewModel
 import com.henry.fakeingresso.home.viewmodel.HomeViewModel
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
@@ -10,5 +12,7 @@ object ViewModelModule {
 
     private val viewModel = module {
         singleOf(::HomeViewModel)
+        singleOf(::DetailViewModel)
+        singleOf(::FavoritesViewModel)
     }
 }

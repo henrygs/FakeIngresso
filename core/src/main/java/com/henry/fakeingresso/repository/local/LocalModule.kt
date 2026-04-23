@@ -19,5 +19,6 @@ object LocalModule {
         }
 
         single { get<AppDatabase>().movieDao() }
+        single { get<AppDatabase>().favoriteDao() }
     }
 }

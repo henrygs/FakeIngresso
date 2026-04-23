@@ -28,8 +28,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.henry.fakeingresso.R
+import com.henry.fakeingresso.ux.MovieCarousel
+import com.henry.fakeingresso.ux.MovieGridCard
 import com.henry.fakeingresso.domain.model.MovieDTO
 import com.henry.fakeingresso.home.viewmodel.HomeUiState
 import com.henry.fakeingresso.ui.theme.DarkBackground
@@ -58,6 +62,7 @@ fun HomeScreen(
                 movies = uiState.filteredMovies,
                 topMovies = uiState.topMovies,
                 searchQuery = uiState.searchQuery,
+                favoriteIds = uiState.favoriteIds,
                 onSearchQueryChanged = onSearchQueryChanged,
                 onMovieClick = onMovieClick
             )
@@ -83,7 +88,7 @@ private fun EmptyContent() {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "Nenhum filme encontrado",
+            text = stringResource(R.string.no_movies_found),
             color = TextGray,
             style = MaterialTheme.typography.bodyLarge
         )
@@ -107,7 +112,7 @@ private fun ErrorContent(message: String, onRetry: () -> Unit) {
             onClick = onRetry,
             colors = ButtonDefaults.buttonColors(containerColor = PrimaryBlue)
         ) {
-            Text(text = "Tentar novamente", color = TextWhite)
+            Text(text = stringResource(R.string.retry), color = TextWhite)
         }
     }
 }
@@ -117,10 +122,10 @@ private fun HomeContent(
     movies: List<MovieDTO>,
     topMovies: List<MovieDTO>,
     searchQuery: String,
+    favoriteIds: Set<String>,
     onSearchQueryChanged: (String) -> Unit,
     onMovieClick: (MovieDTO) -> Unit
 ) {
-
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(horizontal = 12.dp, vertical = 0.dp),
@@ -132,12 +137,12 @@ private fun HomeContent(
                 value = searchQuery,
                 onValueChange = onSearchQueryChanged,
                 placeholder = {
-                    Text(text = "Buscar filmes...", color = TextDarkGray)
+                    Text(text = stringResource(R.string.search_movies), color = TextDarkGray)
                 },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Search,
-                        contentDescription = "Buscar",
+                        contentDescription = stringResource(R.string.search),
                         tint = TextGray
                     )
                 },
@@ -168,7 +173,7 @@ private fun HomeContent(
 
         item(span = { GridItemSpan(maxLineSpan) }) {
             Text(
-                text = "Em Cartaz",
+                text = stringResource(R.string.now_showing),
                 color = TextWhite,
                 fontWeight = FontWeight.Bold,
                 style = MaterialTheme.typography.titleLarge,
@@ -181,6 +186,7 @@ private fun HomeContent(
         items(movies, key = { it.id }) { movie ->
             MovieGridCard(
                 movie = movie,
+                isFavorite = movie.id in favoriteIds,
                 onClick = { onMovieClick(movie) }
             )
         }
